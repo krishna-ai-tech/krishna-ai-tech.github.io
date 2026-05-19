@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Krishnamoorthi B — Enterprise AI Architect | Generative AI & Azure</title>
+  <meta name="description" content="Enterprise Architect • Azure AI Engineer • Generative AI & Intelligent Automation Specialist — Designing enterprise-grade AI platforms, intelligent search solutions, and cloud-native systems."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #05080f;
+      --surface:   #090e1a;
+      --card:      #0d1525;
+      --card-hi:   #101a2e;
+      --border:    rgba(0,120,212,0.14);
+      --border-ai: rgba(108,60,255,0.22);
+      --azure:     #0078d4;
+      --cyan:      #29c5f6;
+      --violet:    #6c3cff;
+      --violet-lt: #9d7bff;
+      --green:     #00d4a0;
+      --white:     #eef2ff;
+      --muted:     #6a84aa;
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,120,212,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,120,212,0.03) 1px, transparent 1px);
+      background-size: 52px 52px;
+      pointer-events: none; z-index: 0;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(var(--violet), var(--azure)); border-radius: 3px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 5%;
+      background: rgba(5,8,15,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-head); font-weight: 800; font-size: 1rem;
+      background: linear-gradient(100deg, var(--violet-lt), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.82rem;
+      font-weight: 400; letter-spacing: 0.07em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    section { position: relative; z-index: 1; }
+    .section-wrap { max-width: 1120px; margin: 0 auto; padding: 100px 5%; }
+
+    .section-label {
+      font-size: 0.73rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 0.5rem; font-weight: 500;
+    }
+    .section-label.ai-label { color: var(--violet-lt); }
+
+    h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+      font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.8rem;
+    }
+
+    .section-divider { width: 44px; height: 3px; border-radius: 2px; margin-bottom: 3rem; }
+    .divider-azure { background: linear-gradient(90deg, var(--azure), var(--cyan)); }
+    .divider-ai    { background: linear-gradient(90deg, var(--violet), var(--violet-lt)); }
+
+    .orb { position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 130px 5% 90px;
+    }
+    .hero-orb-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(108,60,255,0.18), transparent 70%);
+      top: 5%; left: 10%;
+    }
+    .hero-orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(41,197,246,0.12), transparent 70%);
+      bottom: 10%; right: 10%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(108,60,255,0.12);
+      border: 1px solid rgba(108,60,255,0.35);
+      border-radius: 100px; padding: 6px 18px;
+      font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--violet-lt); margin-bottom: 2rem;
+      animation: fadeDown 0.8s ease both;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--violet-lt); box-shadow: 0 0 10px var(--violet-lt);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 7vw, 5.8rem);
+      font-weight: 800; line-height: 1.04; letter-spacing: -0.03em;
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+    .name-gradient {
+      background: linear-gradient(135deg, #fff 0%, var(--violet-lt) 45%, var(--cyan) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      margin-top: 1.4rem;
+      font-size: clamp(0.93rem, 1.8vw, 1.1rem);
+      color: var(--muted); max-width: 700px; line-height: 1.75;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+    .hero-roles {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      justify-content: center; margin-top: 2rem;
+      animation: fadeUp 0.9s 0.3s ease both;
+    }
+    .role-chip {
+      display: inline-flex; align-items: center; gap: 7px;
+      border-radius: 8px; padding: 6px 16px;
+      font-size: 0.82rem; font-weight: 400;
+    }
+    .role-ai   { background: rgba(108,60,255,0.14); border: 1px solid rgba(108,60,255,0.3); color: var(--violet-lt); }
+    .role-cloud{ background: rgba(0,120,212,0.1);   border: 1px solid rgba(0,120,212,0.25); color: #60b0f4; }
+    .role-dot  { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .hero-cta  {
+      display: flex; gap: 1rem; margin-top: 2.5rem;
+      flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.9s 0.4s ease both;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 26px; border-radius: 8px;
+      font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
+      text-decoration: none; transition: all 0.22s; border: none; cursor: pointer;
+    }
+    .btn-ai {
+      background: linear-gradient(135deg, var(--violet), #4a28bb); color: #fff;
+      box-shadow: 0 4px 22px rgba(108,60,255,0.38);
+    }
+    .btn-ai:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(108,60,255,0.55); }
+    .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+
+    /* ABOUT */
+    #about { background: var(--surface); }
+    .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--muted); margin-bottom: 1.1rem; font-size: 0.97rem; }
+    .about-bullets { display: flex; flex-direction: column; gap: 9px; margin-top: 1.4rem; }
+    .about-bullet { display: flex; align-items: flex-start; gap: 12px; color: var(--muted); font-size: 0.88rem; }
+    .ab-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+    .ab-dot.ai  { background: var(--violet-lt); box-shadow: 0 0 8px var(--violet); }
+    .ab-dot.std { background: var(--cyan);      box-shadow: 0 0 8px var(--cyan); }
+    .philosophy-box {
+      background: var(--card); border: 1px solid var(--border-ai);
+      border-left: 3px solid var(--violet); border-radius: 12px;
+      padding: 1.8rem; margin-top: 2rem;
+    }
+    .philosophy-box p { font-style: italic; font-size: 1rem; color: #c4b8ff; margin: 0; line-height: 1.6; }
+    .philosophy-box cite { display: block; font-style: normal; font-size: 0.78rem; color: var(--muted); margin-top: 0.8rem; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.4rem; text-align: center; transition: all 0.22s;
+    }
+    .stat-card:hover { border-color: rgba(108,60,255,0.35); transform: translateY(-3px); }
+    .stat-number {
+      font-family: var(--font-head); font-size: 2rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--violet-lt), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 5px; }
+
+    /* AI SKILLS */
+    #ai-skills {
+      background: linear-gradient(160deg, #0b0d1f 0%, #0e0a20 50%, #060b18 100%);
+      border-top: 1px solid rgba(108,60,255,0.12);
+      border-bottom: 1px solid rgba(108,60,255,0.12);
+    }
+    .ai-skills-header { text-align: center; margin-bottom: 3.5rem; }
+    .ai-core-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem; margin-bottom: 2.5rem;
+    }
+    .ai-core-card {
+      background: linear-gradient(135deg, rgba(108,60,255,0.08), rgba(108,60,255,0.03));
+      border: 1px solid rgba(108,60,255,0.22);
+      border-radius: 14px; padding: 1.8rem;
+      transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .ai-core-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--violet), var(--violet-lt), var(--cyan));
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .ai-core-card:hover {
+      border-color: rgba(108,60,255,0.45); transform: translateY(-5px);
+      box-shadow: 0 16px 50px rgba(108,60,255,0.15);
+    }
+    .ai-core-card:hover::before { opacity: 1; }
+    .ai-card-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .ai-card-title {
+      font-family: var(--font-head); font-size: 0.9rem; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--violet-lt); margin-bottom: 0.9rem;
+    }
+    .ai-pill-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ai-pill {
+      background: rgba(108,60,255,0.12); border: 1px solid rgba(108,60,255,0.25);
+      border-radius: 100px; padding: 3px 12px; font-size: 0.74rem; color: #c4b8ff;
+    }
+    .ai-pill.featured {
+      background: rgba(108,60,255,0.22); border-color: rgba(108,60,255,0.5);
+      color: var(--violet-lt); font-weight: 500;
+    }
+    .ai-tech-strip {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: center; margin-top: 2.5rem; padding-top: 2.5rem;
+      border-top: 1px solid rgba(108,60,255,0.1);
+    }
+    .ai-tech-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--card); border: 1px solid rgba(108,60,255,0.2);
+      border-radius: 8px; padding: 8px 18px;
+      font-size: 0.82rem; font-weight: 500; color: #d0c8ff; transition: all 0.2s;
+    }
+    .ai-tech-badge:hover {
+      border-color: rgba(108,60,255,0.5); background: rgba(108,60,255,0.1); transform: translateY(-2px);
+    }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--violet-lt); box-shadow: 0 0 8px var(--violet); }
+
+    /* CLOUD SKILLS */
+    #cloud-skills { background: var(--bg); }
+    .skill-categories { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+    .skill-cat {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.7rem; transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .skill-cat::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--azure), var(--cyan)); opacity: 0; transition: opacity 0.25s;
+    }
+    .skill-cat:hover { border-color: rgba(41,197,246,0.3); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,120,212,0.1); }
+    .skill-cat:hover::before { opacity: 1; }
+    .skill-cat-icon { font-size: 1.8rem; margin-bottom: 0.7rem; }
+    .skill-cat-title { font-family: var(--font-head); font-size: 0.88rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--white); margin-bottom: 0.9rem; }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-pill { background: rgba(0,120,212,0.09); border: 1px solid rgba(0,120,212,0.18); border-radius: 100px; padding: 3px 11px; font-size: 0.74rem; color: #9ab8dc; }
+
+    /* PROJECTS */
+    #projects { background: var(--surface); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1.3rem; }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      display: flex; flex-direction: column; gap: 0.9rem;
+      transition: all 0.28s;
+    }
+    .project-card.ai-project {
+      border-color: rgba(108,60,255,0.18);
+      background: linear-gradient(160deg, #0f1228, var(--card));
+    }
+    .project-card.ai-project:hover { border-color: rgba(108,60,255,0.45); transform: translateY(-6px); box-shadow: 0 22px 60px rgba(108,60,255,0.18); }
+    .project-card:not(.ai-project):hover { border-color: rgba(41,197,246,0.3); transform: translateY(-5px); box-shadow: 0 18px 50px rgba(0,120,212,0.12); }
+    .project-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 600; padding: 3px 10px; border-radius: 4px; align-self: flex-start;
+    }
+    .badge-ai   { background: rgba(108,60,255,0.15); color: var(--violet-lt); border: 1px solid rgba(108,60,255,0.3); }
+    .badge-cloud{ background: rgba(0,120,212,0.12);  color: #60b0f4; border: 1px solid rgba(0,120,212,0.25); }
+    .badge-ent  { background: rgba(0,212,160,0.1);   color: var(--green); border: 1px solid rgba(0,212,160,0.25); }
+    .project-icon-wrap { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+    .pi-ai   { background: linear-gradient(135deg, var(--violet),  rgba(108,60,255,0.4)); }
+    .pi-cloud{ background: linear-gradient(135deg, var(--azure),   rgba(0,120,212,0.4)); }
+    .pi-ent  { background: linear-gradient(135deg, #007a5e, rgba(0,212,160,0.3)); }
+    .project-title { font-family: var(--font-head); font-size: 1.07rem; font-weight: 700; letter-spacing: -0.01em; color: var(--white); }
+    .project-desc  { color: var(--muted); font-size: 0.87rem; line-height: 1.65; }
+    .project-tech  { display: flex; flex-wrap: wrap; gap: 5px; margin-top: auto; }
+    .tech-tag { border-radius: 4px; padding: 2px 9px; font-size: 0.7rem; letter-spacing: 0.03em; }
+    .tech-ai   { background: rgba(108,60,255,0.1);   border: 1px solid rgba(108,60,255,0.2); color: #b8a8ff; }
+    .tech-cloud{ background: rgba(41,197,246,0.07);  border: 1px solid rgba(41,197,246,0.15); color: var(--cyan); }
+    .tech-std  { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: var(--muted); }
+
+    /* HIGHLIGHTS */
+    #highlights { background: var(--bg); }
+    .highlights-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.9rem; }
+    .highlight-item {
+      display: flex; align-items: flex-start; gap: 13px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.1rem 1.4rem;
+      font-size: 0.88rem; color: var(--muted); transition: all 0.2s;
+    }
+    .highlight-item:hover { border-color: rgba(41,197,246,0.25); transform: translateX(4px); }
+    .hi-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+    .hi-ai  { background: var(--violet-lt); box-shadow: 0 0 8px var(--violet); }
+    .hi-std { background: var(--cyan);      box-shadow: 0 0 8px var(--cyan); }
+
+    /* FOCUS */
+    #focus { background: var(--surface); }
+    .focus-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1rem; }
+    .focus-card { background: var(--card); border-radius: 12px; padding: 1.5rem 1.2rem; text-align: center; transition: all 0.22s; }
+    .focus-card.ai-focus  { border: 1px solid rgba(108,60,255,0.2); background: linear-gradient(160deg, rgba(108,60,255,0.07), var(--card)); }
+    .focus-card.std-focus { border: 1px solid var(--border); }
+    .focus-card:hover { transform: translateY(-3px); }
+    .focus-card.ai-focus:hover  { border-color: rgba(108,60,255,0.4); box-shadow: 0 10px 30px rgba(108,60,255,0.12); }
+    .focus-card.std-focus:hover { border-color: rgba(41,197,246,0.3); }
+    .focus-icon  { font-size: 1.9rem; margin-bottom: 0.7rem; }
+    .focus-label { font-size: 0.82rem; color: var(--muted); line-height: 1.4; }
+
+    /* CONTACT */
+    #contact { background: var(--bg); text-align: center; }
+    #contact .section-wrap { max-width: 680px; }
+    .contact-card {
+      background: var(--card-hi); border: 1px solid rgba(108,60,255,0.2);
+      border-radius: 20px; padding: 3.5rem; position: relative; overflow: hidden;
+    }
+    .contact-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--violet), var(--cyan), var(--violet));
+      background-size: 200% 100%; animation: shimmer 3s linear infinite;
+    }
+    .contact-tagline { color: var(--muted); font-size: 0.95rem; max-width: 460px; margin: 0 auto 0.3rem; }
+    .contact-links { display: flex; justify-content: center; gap: 0.9rem; flex-wrap: wrap; margin-top: 1.8rem; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 8px;
+      color: var(--muted); text-decoration: none; font-size: 0.87rem; transition: all 0.2s;
+    }
+    .contact-link:hover { border-color: var(--violet-lt); color: var(--violet-lt); transform: translateY(-2px); }
+
+    footer {
+      text-align: center; padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.78rem; position: relative; z-index: 1;
+    }
+    footer span { color: var(--violet-lt); }
+
+    @keyframes fadeUp   { from{opacity:0;transform:translateY(24px);}  to{opacity:1;transform:translateY(0);} }
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-16px);} to{opacity:1;transform:translateY(0);} }
+    @keyframes shimmer  { 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
+    @keyframes pulse    { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+    .fade-in {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .stat-grid  { grid-template-columns: 1fr 1fr; }
+      .contact-card { padding: 2rem 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SK · AI</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#ai-skills">AI Skills</a></li>
+    <li><a href="#cloud-skills">Cloud</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#focus">Focus</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb hero-orb-1"></div>
+  <div class="orb hero-orb-2"></div>
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    Generative AI &amp; Enterprise AI Specialist
+  </div>
+  <h1><span class="name-gradient">Superman Krishna</span></h1>
+  <p class="hero-sub">
+    Enterprise Architect designing intelligent AI platforms, cloud-native systems, and scalable automation using
+    <strong style="color:#c4b8ff;font-weight:500;">OpenAI · Anthropic Claude · LangChain</strong> and Microsoft Azure.
+  </p>
+  <div class="hero-roles">
+    <span class="role-chip role-ai"><span class="role-dot"></span>Generative AI Engineer</span>
+    <span class="role-chip role-ai"><span class="role-dot"></span>LangChain &amp; RAG Architect</span>
+    <span class="role-chip role-ai"><span class="role-dot"></span>Intelligent Automation</span>
+    <span class="role-chip role-cloud"><span class="role-dot"></span>Azure Cloud Architect</span>
+    <span class="role-chip role-cloud"><span class="role-dot"></span>.NET / C# Engineer</span>
+    <span class="role-chip role-cloud"><span class="role-dot"></span>Enterprise Integration</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#ai-skills" class="btn btn-ai">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      Explore AI Skills
+    </a>
+    <a href="#projects" class="btn btn-outline">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      View Projects
+    </a>
+    <a href="#contact" class="btn btn-outline">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      Contact
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p class="section-label">About Me</p>
+        <h2>Engineering Intelligence<br/>at Enterprise Scale</h2>
+        <div class="section-divider divider-ai"></div>
+        <p>Enterprise Solutions Architect and Full Stack Developer specialising in AI-powered enterprise platforms, intelligent automation systems, cloud-native architecture, and scalable enterprise integrations.</p>
+        <p>My core expertise lies in building intelligent systems that combine Generative AI, LLMs, and LangChain orchestration with secure, scalable Azure cloud infrastructure to solve complex business challenges.</p>
+        <div class="about-bullets">
+          <div class="about-bullet"><span class="ab-dot ai"></span>Generative AI, LLMs, LangChain &amp; RAG systems</div>
+          <div class="about-bullet"><span class="ab-dot ai"></span>OpenAI API &amp; Anthropic Claude integrations</div>
+          <div class="about-bullet"><span class="ab-dot ai"></span>AI-powered search platforms &amp; semantic retrieval</div>
+          <div class="about-bullet"><span class="ab-dot ai"></span>Intelligent document processing systems</div>
+          <div class="about-bullet"><span class="ab-dot std"></span>Enterprise-grade Azure cloud architectures</div>
+          <div class="about-bullet"><span class="ab-dot std"></span>SAP → PIM enterprise data pipelines</div>
+          <div class="about-bullet"><span class="ab-dot std"></span>SharePoint &amp; Power Platform automation</div>
+        </div>
+        <div class="philosophy-box">
+          <p>"Build intelligent systems that are scalable, secure, maintainable, and enterprise-ready."</p>
+          <cite>— Superman Krishna</cite>
+        </div>
+      </div>
+      <div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-number">AI</div><div class="stat-label">LLM &amp; GenAI Expert</div></div>
+          <div class="stat-card"><div class="stat-number">RAG</div><div class="stat-label">Retrieval-Augmented Gen</div></div>
+          <div class="stat-card"><div class="stat-number">7+</div><div class="stat-label">Enterprise Projects Built</div></div>
+          <div class="stat-card"><div class="stat-number">10+</div><div class="stat-label">Azure Services Mastered</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ AI SKILLS ═══════════════════════════ -->
+<section id="ai-skills">
+  <div class="section-wrap">
+    <div class="ai-skills-header fade-in">
+      <p class="section-label ai-label">Core Specialisation</p>
+      <h2>Generative AI &amp; LLM Engineering</h2>
+      <div class="section-divider divider-ai" style="margin:0.8rem auto 0;"></div>
+      <p style="color:var(--muted);max-width:600px;margin:1.5rem auto 0;font-size:0.95rem;">
+        Deep expertise in building production-grade AI systems — from LLM orchestration and retrieval architectures to intelligent automation pipelines and conversational AI platforms.
+      </p>
+    </div>
+
+    <div class="ai-core-grid">
+      <div class="ai-core-card fade-in">
+        <div class="ai-card-icon">🧠</div>
+        <div class="ai-card-title">LLM &amp; Generative AI</div>
+        <div class="ai-pill-row">
+          <span class="ai-pill featured">OpenAI API</span>
+          <span class="ai-pill featured">Anthropic Claude API</span>
+          <span class="ai-pill featured">LangChain</span>
+          <span class="ai-pill">Prompt Engineering</span>
+          <span class="ai-pill">Conversational AI</span>
+          <span class="ai-pill">AI Evaluation</span>
+          <span class="ai-pill">AI Safety</span>
+          <span class="ai-pill">Context Management</span>
+        </div>
+      </div>
+      <div class="ai-core-card fade-in">
+        <div class="ai-card-icon">🔍</div>
+        <div class="ai-card-title">RAG &amp; Intelligent Search</div>
+        <div class="ai-pill-row">
+          <span class="ai-pill featured">Retrieval-Augmented Gen</span>
+          <span class="ai-pill featured">Semantic Search</span>
+          <span class="ai-pill featured">Vector Databases</span>
+          <span class="ai-pill">Embedding-based Retrieval</span>
+          <span class="ai-pill">Knowledge Ingestion</span>
+          <span class="ai-pill">Intelligent Ranking</span>
+          <span class="ai-pill">Metadata Indexing</span>
+        </div>
+      </div>
+      <div class="ai-core-card fade-in">
+        <div class="ai-card-icon">⚡</div>
+        <div class="ai-card-title">AI Agents &amp; Orchestration</div>
+        <div class="ai-pill-row">
+          <span class="ai-pill featured">AI Agents</span>
+          <span class="ai-pill featured">Multi-Agent Architectures</span>
+          <span class="ai-pill featured">Workflow Orchestration</span>
+          <span class="ai-pill">Flowise AI</span>
+          <span class="ai-pill">Autonomous Systems</span>
+          <span class="ai-pill">Multi-step Reasoning</span>
+          <span class="ai-pill">AI Pipeline Design</span>
+        </div>
+      </div>
+      <div class="ai-core-card fade-in">
+        <div class="ai-card-icon">📄</div>
+        <div class="ai-card-title">Intelligent Document Processing</div>
+        <div class="ai-pill-row">
+          <span class="ai-pill featured">Azure AI Doc Intelligence</span>
+          <span class="ai-pill featured">OCR &amp; Classification</span>
+          <span class="ai-pill">AI Data Extraction</span>
+          <span class="ai-pill">Ingestion Pipelines</span>
+          <span class="ai-pill">Multi-doc Classification</span>
+          <span class="ai-pill">Metadata Extraction</span>
+        </div>
+      </div>
+      <div class="ai-core-card fade-in">
+        <div class="ai-card-icon">🤝</div>
+        <div class="ai-card-title">Conversational AI Platforms</div>
+        <div class="ai-pill-row">
+          <span class="ai-pill featured">AI Support Agents</span>
+          <span class="ai-pill featured">Context-aware Responses</span>
+          <span class="ai-pill">Prompt Optimization</span>
+          <span class="ai-pill">Failure Analysis</span>
+          <span class="ai-pill">AI Evaluation Reporting</span>
+          <span class="ai-pill">Enterprise Chatbots</span>
+        </div>
+      </div>
+      <div class="ai-core-card fade-in">
+        <div class="ai-card-icon">🛍️</div>
+        <div class="ai-card-title">AI Product Discovery</div>
+        <div class="ai-pill-row">
+          <span class="ai-pill featured">Natural Language Search</span>
+          <span class="ai-pill featured">Semantic SKU Matching</span>
+          <span class="ai-pill">AI Relevance Scoring</span>
+          <span class="ai-pill">Product Recommendations</span>
+          <span class="ai-pill">Attribute Filtering</span>
+          <span class="ai-pill">AI Discovery Workflows</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-tech-strip fade-in">
+      <div class="ai-tech-badge"><span class="badge-dot"></span>OpenAI GPT</div>
+      <div class="ai-tech-badge"><span class="badge-dot"></span>Anthropic Claude</div>
+      <div class="ai-tech-badge"><span class="badge-dot"></span>LangChain</div>
+      <div class="ai-tech-badge"><span class="badge-dot"></span>Flowise AI</div>
+      <div class="ai-tech-badge"><span class="badge-dot"></span>Vector Databases</div>
+      <div class="ai-tech-badge"><span class="badge-dot"></span>RAG Architecture</div>
+      <div class="ai-tech-badge"><span class="badge-dot"></span>Semantic Retrieval</div>
+      <div class="ai-tech-badge"><span class="badge-dot"></span>Embedding Models</div>
+      <div class="ai-tech-badge"><span class="badge-dot"></span>Azure AI Services</div>
+      <div class="ai-tech-badge"><span class="badge-dot"></span>AI Agents</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOUD SKILLS -->
+<section id="cloud-skills">
+  <div class="section-wrap">
+    <p class="section-label fade-in">Infrastructure &amp; Engineering</p>
+    <h2 class="fade-in">Cloud &amp; Technical Stack</h2>
+    <div class="section-divider divider-azure fade-in"></div>
+    <div class="skill-categories">
+      <div class="skill-cat fade-in">
+        <div class="skill-cat-icon">☁️</div>
+        <div class="skill-cat-title">Azure Cloud</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Microsoft Azure</span><span class="skill-pill">Azure Functions</span>
+          <span class="skill-pill">App Services</span><span class="skill-pill">Blob Storage</span>
+          <span class="skill-pill">Queue Storage</span><span class="skill-pill">Azure SQL</span>
+          <span class="skill-pill">Virtual Networks</span><span class="skill-pill">Private Endpoints</span>
+          <span class="skill-pill">Managed Identity</span><span class="skill-pill">Key Vault</span>
+          <span class="skill-pill">Entra ID</span>
+        </div>
+      </div>
+      <div class="skill-cat fade-in">
+        <div class="skill-cat-icon">⚙️</div>
+        <div class="skill-cat-title">Backend Engineering</div>
+        <div class="skill-pills">
+          <span class="skill-pill">C#</span><span class="skill-pill">.NET 8</span>
+          <span class="skill-pill">ASP.NET Core</span><span class="skill-pill">REST API</span>
+          <span class="skill-pill">Entity Framework</span><span class="skill-pill">Azure SQL</span>
+          <span class="skill-pill">Stored Procedures</span><span class="skill-pill">Queue Processing</span>
+          <span class="skill-pill">Background Services</span><span class="skill-pill">Microservices</span>
+        </div>
+      </div>
+      <div class="skill-cat fade-in">
+        <div class="skill-cat-icon">🏢</div>
+        <div class="skill-cat-title">Enterprise Platforms</div>
+        <div class="skill-pills">
+          <span class="skill-pill">inRiver PIM</span><span class="skill-pill">Bloomreach</span>
+          <span class="skill-pill">SAP Integrations</span><span class="skill-pill">SharePoint Online</span>
+          <span class="skill-pill">Power Automate</span><span class="skill-pill">Microsoft Forms</span>
+          <span class="skill-pill">M365 Admin</span>
+        </div>
+      </div>
+      <div class="skill-cat fade-in">
+        <div class="skill-cat-icon">🌐</div>
+        <div class="skill-cat-title">Frontend &amp; Web</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Next.js</span><span class="skill-pill">React</span>
+          <span class="skill-pill">TypeScript</span><span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">HTML5 / CSS3</span><span class="skill-pill">Responsive UI</span>
+          <span class="skill-pill">SEO Optimization</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap">
+    <p class="section-label ai-label fade-in">Featured Work</p>
+    <h2 class="fade-in">Projects</h2>
+    <div class="section-divider divider-ai fade-in"></div>
+    <div class="projects-grid">
+
+      <div class="project-card ai-project fade-in">
+        <span class="project-badge badge-ai">🤖 Generative AI</span>
+        <div class="project-icon-wrap pi-ai">🧠</div>
+        <div class="project-title">AI Support Agent Platform</div>
+        <div class="project-desc">Intelligent enterprise support assistant with RAG architecture, context-aware responses, PDF knowledge ingestion, vector-based retrieval, and structured AI evaluation reporting.</div>
+        <div class="project-tech">
+          <span class="tech-tag tech-ai">LangChain</span><span class="tech-tag tech-ai">OpenAI API</span>
+          <span class="tech-tag tech-ai">Claude API</span><span class="tech-tag tech-ai">Flowise AI</span>
+          <span class="tech-tag tech-ai">Vector DB</span><span class="tech-tag tech-ai">RAG</span>
+          <span class="tech-tag tech-ai">Semantic Retrieval</span>
+        </div>
+      </div>
+
+      <div class="project-card ai-project fade-in">
+        <span class="project-badge badge-ai">🔍 AI Search</span>
+        <div class="project-icon-wrap pi-ai">🛍️</div>
+        <div class="project-title">Product AI Search Platform</div>
+        <div class="project-desc">AI-powered enterprise product discovery with natural language search, semantic SKU matching, embedding-based retrieval, and intelligent relevance scoring.</div>
+        <div class="project-tech">
+          <span class="tech-tag tech-ai">OpenAI API</span><span class="tech-tag tech-ai">Semantic Search</span>
+          <span class="tech-tag tech-ai">Embedding Retrieval</span>
+          <span class="tech-tag tech-cloud">Azure SQL</span><span class="tech-tag tech-std">Metadata Indexing</span>
+        </div>
+      </div>
+
+      <div class="project-card ai-project fade-in">
+        <span class="project-badge badge-ai">📄 AI Docs</span>
+        <div class="project-icon-wrap pi-ai">📑</div>
+        <div class="project-title">Enterprise AI Document Processing</div>
+        <div class="project-desc">Scalable AI document ingestion platform with automated OCR, queue-driven processing, multi-document classification, AI metadata extraction, and secure VNet architecture.</div>
+        <div class="project-tech">
+          <span class="tech-tag tech-ai">Azure AI Doc Intelligence</span>
+          <span class="tech-tag tech-cloud">Azure Functions</span><span class="tech-tag tech-cloud">Blob Storage</span>
+          <span class="tech-tag tech-cloud">Azure SQL</span><span class="tech-tag tech-std">.NET 8</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <span class="project-badge badge-ent">✅ Data Quality</span>
+        <div class="project-icon-wrap pi-ent">✔️</div>
+        <div class="project-title">SKU Validation App</div>
+        <div class="project-desc">Enterprise-grade SKU validation and product data quality platform with rule-based validation, duplicate prevention, bulk workflows, and complete audit tracking.</div>
+        <div class="project-tech">
+          <span class="tech-tag tech-std">C#</span><span class="tech-tag tech-std">.NET</span>
+          <span class="tech-tag tech-cloud">Azure SQL</span><span class="tech-tag tech-cloud">Azure Functions</span>
+          <span class="tech-tag tech-std">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <span class="project-badge badge-ent">🔀 Deduplication</span>
+        <div class="project-icon-wrap pi-ent">🧮</div>
+        <div class="project-title">Intelligent Dedupe Engine</div>
+        <div class="project-desc">Enterprise deduplication engine with fuzzy matching, similarity scoring, cross-system record comparison, and bulk deduplication for large-scale product catalogs and SAP → PIM cleanup.</div>
+        <div class="project-tech">
+          <span class="tech-tag tech-std">C#</span><span class="tech-tag tech-cloud">Azure SQL</span>
+          <span class="tech-tag tech-std">.NET</span><span class="tech-tag tech-std">Fuzzy Matching</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <span class="project-badge badge-cloud">🔗 Integration</span>
+        <div class="project-icon-wrap pi-cloud">🔗</div>
+        <div class="project-title">SAP → PIM → Downstream Integration</div>
+        <div class="project-desc">Enterprise integration pipelines bridging SAP, inRiver PIM, and Bloomreach with high-volume processing, JSON transformation, error handling, and scalable SQL architecture.</div>
+        <div class="project-tech">
+          <span class="tech-tag tech-std">SAP</span><span class="tech-tag tech-std">inRiver PIM</span>
+          <span class="tech-tag tech-std">Bloomreach</span>
+          <span class="tech-tag tech-cloud">Azure SQL</span><span class="tech-tag tech-std">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <span class="project-badge badge-cloud">👥 Automation</span>
+        <div class="project-icon-wrap pi-cloud">👥</div>
+        <div class="project-title">SharePoint Onboarding Automation</div>
+        <div class="project-desc">Modern employee onboarding automation with user provisioning, work email generation, approval workflows, and role-based access management using Power Platform.</div>
+        <div class="project-tech">
+          <span class="tech-tag tech-std">SharePoint Online</span>
+          <span class="tech-tag tech-std">Power Automate</span><span class="tech-tag tech-std">Microsoft Forms</span>
+          <span class="tech-tag tech-cloud">Entra ID</span>
+        </div>
+      </div>
+
+      <div class="project-card ai-project fade-in">
+        <span class="project-badge badge-ai">🎬 AI Creative</span>
+        <div class="project-icon-wrap pi-ai">🎬</div>
+        <div class="project-title">AI Media &amp; Content Studio</div>
+        <div class="project-desc">AI-driven media and content generation focused on intelligent storytelling, presentation automation, 3D workflows, Unreal Engine cinematic pipelines, and social media automation.</div>
+        <div class="project-tech">
+          <span class="tech-tag tech-ai">AI Content Gen</span>
+          <span class="tech-tag tech-std">Unreal Engine</span><span class="tech-tag tech-std">3D Workflows</span>
+          <span class="tech-tag tech-ai">Automation</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section id="highlights">
+  <div class="section-wrap">
+    <p class="section-label fade-in">Track Record</p>
+    <h2 class="fade-in">Technical Strengths</h2>
+    <div class="section-divider divider-azure fade-in"></div>
+    <div class="highlights-list fade-in">
+      <div class="highlight-item"><span class="hi-dot hi-ai"></span>Enterprise AI Architecture &amp; LLM Engineering</div>
+      <div class="highlight-item"><span class="hi-dot hi-ai"></span>Generative AI Engineering with OpenAI &amp; Anthropic Claude</div>
+      <div class="highlight-item"><span class="hi-dot hi-ai"></span>LangChain Workflow Design &amp; Multi-Agent Systems</div>
+      <div class="highlight-item"><span class="hi-dot hi-ai"></span>Retrieval-Augmented Generation (RAG) Architecture</div>
+      <div class="highlight-item"><span class="hi-dot hi-ai"></span>Conversational AI &amp; Intelligent Search Platforms</div>
+      <div class="highlight-item"><span class="hi-dot hi-ai"></span>AI-powered Automation &amp; Workflow Orchestration</div>
+      <div class="highlight-item"><span class="hi-dot hi-std"></span>Secure Azure Cloud &amp; Private Networking</div>
+      <div class="highlight-item"><span class="hi-dot hi-std"></span>Cloud-native Distributed Systems</div>
+      <div class="highlight-item"><span class="hi-dot hi-std"></span>Enterprise Integration Architecture (SAP / PIM / ERP)</div>
+      <div class="highlight-item"><span class="hi-dot hi-std"></span>SQL Performance Optimization</div>
+      <div class="highlight-item"><span class="hi-dot hi-std"></span>Data Validation &amp; Governance</div>
+      <div class="highlight-item"><span class="hi-dot hi-std"></span>Scalable Queue-based Microservice Workflows</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOCUS -->
+<section id="focus">
+  <div class="section-wrap">
+    <p class="section-label ai-label fade-in">What's Next</p>
+    <h2 class="fade-in">Current Focus Areas</h2>
+    <div class="section-divider divider-ai fade-in"></div>
+    <div class="focus-grid fade-in">
+      <div class="focus-card ai-focus"><div class="focus-icon">🤖</div><div class="focus-label">AI Agents &amp; Autonomous Systems</div></div>
+      <div class="focus-card ai-focus"><div class="focus-icon">🔗</div><div class="focus-label">LangChain &amp; Multi-Agent Architectures</div></div>
+      <div class="focus-card ai-focus"><div class="focus-icon">🧠</div><div class="focus-label">OpenAI &amp; Claude Integrations</div></div>
+      <div class="focus-card ai-focus"><div class="focus-icon">🔍</div><div class="focus-label">RAG &amp; Semantic Search</div></div>
+      <div class="focus-card ai-focus"><div class="focus-icon">⚡</div><div class="focus-label">AI Workflow Orchestration</div></div>
+      <div class="focus-card ai-focus"><div class="focus-icon">🛍️</div><div class="focus-label">Intelligent Product Discovery</div></div>
+      <div class="focus-card std-focus"><div class="focus-icon">🏛️</div><div class="focus-label">Enterprise AI Governance</div></div>
+      <div class="focus-card std-focus"><div class="focus-icon">🛡️</div><div class="focus-label">Cloud Security &amp; Compliance</div></div>
+      <div class="focus-card std-focus"><div class="focus-icon">🎬</div><div class="focus-label">Unreal Engine Cinematics</div></div>
+      <div class="focus-card ai-focus"><div class="focus-icon">📑</div><div class="focus-label">Intelligent Document Processing</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <p class="section-label ai-label fade-in">Let's Connect</p>
+    <h2 class="fade-in">Get In Touch</h2>
+    <div class="section-divider divider-ai fade-in" style="margin-left:auto;margin-right:auto;"></div>
+    <div class="contact-card fade-in">
+      <p class="contact-tagline">
+        Interested in enterprise AI platforms, Azure architecture, or intelligent automation? Let's build something intelligent together.
+      </p>
+      <div class="contact-links">
+        <a href="https://github.com/krishna-ai-tech" class="contact-link" target="_blank">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
+          GitHub
+        </a>
+        <a href="https://krishna-ai-tech.github.io" class="contact-link" target="_blank">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          Portfolio
+        </a>
+        <a href="https://linkedin.com/in/YOUR_PROFILE" class="contact-link" target="_blank">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"/></svg>
+          LinkedIn
+        </a>
+        <a href="mailto:ishaanmoorthi@gmail.com" class="contact-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          Email
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed &amp; built by <span>Krishnamoorthi B</span> · Hosted on GitHub Pages · <span>Enterprise AI Architect</span></p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    let delay = 0;
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.transitionDelay = delay + 's';
+        entry.target.classList.add('visible');
+        delay += 0.07;
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
